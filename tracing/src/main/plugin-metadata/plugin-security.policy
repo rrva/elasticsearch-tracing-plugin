@@ -9,9 +9,7 @@ grant codeBase "${codebase.tracing}" {
     permission java.lang.reflect.ReflectPermission "suppressAccessChecks";
     permission java.net.SocketPermission "*", "connect,resolve";
     permission java.net.NetPermission "getProxySelector";
-    permission java.lang.RuntimePermission "accessClassInPackage.sun.misc";
 };
-
 
 grant codeBase "${codebase.okhttp}" {
     permission java.net.NetPermission "getProxySelector";
@@ -27,13 +25,4 @@ grant codeBase "${codebase.opentelemetry-exporter-jaeger}" {
 
 grant codeBase "${codebase.opentelemetry-exporter-otlp}" {
     permission java.net.NetPermission "getProxySelector";
-};
-
-grant codeBase "${codebase.opentelemetry-sdk-trace}" {
-    permission java.lang.RuntimePermission "accessClassInPackage.sun.misc";
-};
-
-
-grant codeBase "${codebase.opentelemetry-sdk-common}" {
-    permission java.lang.RuntimePermission "accessClassInPackage.sun.misc";
 };

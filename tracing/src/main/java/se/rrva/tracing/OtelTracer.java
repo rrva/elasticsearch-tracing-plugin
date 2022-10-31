@@ -7,6 +7,10 @@
  *
  * Modified by Ragnar Rova on 2022-10-31
  *
+ * Largely based on APMTracer.java, which is Copyright Elasticsearch B.V:
+ *
+ * https://github.com/elastic/elasticsearch/blob/f7bb5e02c50e2e981784fbf967c4531116be9dd4/modules/apm/src/main/java/org/elasticsearch/tracing/apm/APMTracer.java
+ *
  */
 
 package se.rrva.tracing;
@@ -78,7 +82,7 @@ public class OtelTracer extends AbstractLifecycleComponent implements Tracer {
 
 
         Resource resource = Resource.getDefault()
-            .merge(Resource.create(Attributes.of(ResourceAttributes.SERVICE_NAME, "elasticsearch")));
+                .merge(Resource.create(Attributes.of(ResourceAttributes.SERVICE_NAME, "elasticsearch")));
 
         JaegerGrpcSpanExporterBuilder jaegerGrpcSpanExporterBuilder = JaegerGrpcSpanExporter.builder();
         if(OTEL_EXPORTER_JAEGER_ENDPOINT != null) {
@@ -92,14 +96,14 @@ public class OtelTracer extends AbstractLifecycleComponent implements Tracer {
         }
         JaegerGrpcSpanExporter jaegerGrpcSpanExporter = AccessController.doPrivileged((PrivilegedAction<JaegerGrpcSpanExporter>) jaegerGrpcSpanExporterBuilder::build);
         SdkTracerProvider sdkTracerProvider = SdkTracerProvider.builder()
-            .addSpanProcessor(BatchSpanProcessor.builder(jaegerGrpcSpanExporter).build())
-            .setResource(resource)
-            .build();
+                .addSpanProcessor(BatchSpanProcessor.builder(jaegerGrpcSpanExporter).build())
+                .setResource(resource)
+                .build();
 
         openTelemetry = OpenTelemetrySdk.builder()
-            .setTracerProvider(sdkTracerProvider)
-            .setPropagators(ContextPropagators.create(W3CTraceContextPropagator.getInstance()))
-            .buildAndRegisterGlobal();
+                .setTracerProvider(sdkTracerProvider)
+                .setPropagators(ContextPropagators.create(W3CTraceContextPropagator.getInstance()))
+                .buildAndRegisterGlobal();
 
         tracer = openTelemetry.getTracer("elasticsearch", Version.CURRENT.toString());
 
@@ -170,8 +174,8 @@ public class OtelTracer extends AbstractLifecycleComponent implements Tracer {
                     traceContextMap.put(Task.TRACE_STATE, traceStateHeader);
                 }
                 parentContext = openTelemetry.getPropagators()
-                    .getTextMapPropagator()
-                    .extract(Context.current(), traceContextMap, new MapKeyGetter());
+                        .getTextMapPropagator()
+                        .extract(Context.current(), traceContextMap, new MapKeyGetter());
             }
         }
         return parentContext;
@@ -224,7 +228,7 @@ public class OtelTracer extends AbstractLifecycleComponent implements Tracer {
                     spanBuilder.setAttribute(key, (Boolean) value);
                 } else {
                     throw new IllegalArgumentException(
-                        "span attributes do not support value type of [" + value.getClass().getCanonicalName() + "]"
+                            "span attributes do not support value type of [" + value.getClass().getCanonicalName() + "]"
                     );
                 }
             }

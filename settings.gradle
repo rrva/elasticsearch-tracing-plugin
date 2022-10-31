@@ -17,13 +17,8 @@ rootDir.listFiles().findAll { it.directory && new File(it, 'build.gradle').exist
 
 gradle.rootProject {
   ext {
-    // Fetch Elasticsearch version from outer build
-    new File(rootDir.parentFile.parentFile, 'build-tools-internal/version.properties').withInputStream { is ->
-      def props = new Properties()
-      props.load(is)
-      elasticsearchVersion = "${props.get('elasticsearch')}-SNAPSHOT"
-      log4jVersion = props.get('log4j')
-    }
+      elasticsearchVersion = "8.4.3"
+      log4jVersion = "2.18.0"
   }
 }
 
