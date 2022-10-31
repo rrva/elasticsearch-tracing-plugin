@@ -1,0 +1,39 @@
+grant {
+    permission java.util.PropertyPermission "elastic.apm.*", "write";
+};
+
+grant codeBase "${codebase.tracing}" {
+    permission java.lang.RuntimePermission "accessDeclaredMembers";
+    permission java.lang.RuntimePermission "setContextClassLoader";
+    permission java.lang.RuntimePermission "setFactory";
+    permission java.lang.reflect.ReflectPermission "suppressAccessChecks";
+    permission java.net.SocketPermission "*", "connect,resolve";
+    permission java.net.NetPermission "getProxySelector";
+    permission java.lang.RuntimePermission "accessClassInPackage.sun.misc";
+};
+
+
+grant codeBase "${codebase.okhttp}" {
+    permission java.net.NetPermission "getProxySelector";
+};
+
+grant codeBase "${codebase.opentelemetry-exporter-common}" {
+    permission java.net.NetPermission "getProxySelector";
+};
+
+grant codeBase "${codebase.opentelemetry-exporter-jaeger}" {
+    permission java.net.NetPermission "getProxySelector";
+};
+
+grant codeBase "${codebase.opentelemetry-exporter-otlp}" {
+    permission java.net.NetPermission "getProxySelector";
+};
+
+grant codeBase "${codebase.opentelemetry-sdk-trace}" {
+    permission java.lang.RuntimePermission "accessClassInPackage.sun.misc";
+};
+
+
+grant codeBase "${codebase.opentelemetry-sdk-common}" {
+    permission java.lang.RuntimePermission "accessClassInPackage.sun.misc";
+};
