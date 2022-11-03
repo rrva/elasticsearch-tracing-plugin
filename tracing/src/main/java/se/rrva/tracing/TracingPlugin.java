@@ -34,26 +34,26 @@ import java.util.function.Supplier;
 
 public class TracingPlugin extends Plugin implements TracerPlugin {
 
-    private final SetOnce<OtelTracer> tracer = new SetOnce<>();
+  private final SetOnce<OtelTracer> tracer = new SetOnce<>();
 
-    @Override
-    public Collection<Object> createComponents(Client client, ClusterService clusterService, ThreadPool threadPool, ResourceWatcherService resourceWatcherService, ScriptService scriptService, NamedXContentRegistry xContentRegistry, Environment environment, NodeEnvironment nodeEnvironment, NamedWriteableRegistry namedWriteableRegistry, IndexNameExpressionResolver indexNameExpressionResolver, Supplier<RepositoriesService> repositoriesServiceSupplier, Tracer unused) {
-        final OtelTracer otelTracer = tracer.get();
+  @Override
+  public Collection<Object> createComponents(Client client, ClusterService clusterService, ThreadPool threadPool, ResourceWatcherService resourceWatcherService, ScriptService scriptService, NamedXContentRegistry xContentRegistry, Environment environment, NodeEnvironment nodeEnvironment, NamedWriteableRegistry namedWriteableRegistry, IndexNameExpressionResolver indexNameExpressionResolver, Supplier<RepositoriesService> repositoriesServiceSupplier, Tracer unused) {
+    final OtelTracer otelTracer = tracer.get();
 
-        otelTracer.setClusterName(clusterService.getClusterName().value());
-        otelTracer.setNodeName(clusterService.getNodeName());
+    otelTracer.setClusterName(clusterService.getClusterName().value());
+    otelTracer.setNodeName(clusterService.getNodeName());
 
 
-        return List.of(otelTracer);
-    }
+    return List.of(otelTracer);
+  }
 
-    @Override
-    public Tracer getTracer(ClusterService clusterService, Settings settings) {
-        final OtelTracer otelTracer = new OtelTracer();
+  @Override
+  public Tracer getTracer(ClusterService clusterService, Settings settings) {
+    final OtelTracer otelTracer = new OtelTracer();
 
-        tracer.set(otelTracer);
+    tracer.set(otelTracer);
 
-        return otelTracer;
-    }
+    return otelTracer;
+  }
 
 }
