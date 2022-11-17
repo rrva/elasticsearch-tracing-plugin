@@ -13,6 +13,7 @@ grant codeBase "${codebase.tracing}" {
 
 grant codeBase "${codebase.okhttp}" {
     permission java.net.NetPermission "getProxySelector";
+    permission java.net.SocketPermission "*", "connect,resolve";
 };
 
 grant codeBase "${codebase.opentelemetry-exporter-common}" {
