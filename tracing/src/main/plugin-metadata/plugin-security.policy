@@ -18,12 +18,15 @@ grant codeBase "${codebase.okhttp}" {
 
 grant codeBase "${codebase.opentelemetry-exporter-common}" {
     permission java.net.NetPermission "getProxySelector";
+    permission java.net.SocketPermission "*", "connect,resolve";
 };
 
 grant codeBase "${codebase.opentelemetry-exporter-jaeger}" {
     permission java.net.NetPermission "getProxySelector";
+    permission java.net.SocketPermission "*", "connect,resolve";
 };
 
 grant codeBase "${codebase.opentelemetry-exporter-otlp}" {
     permission java.net.NetPermission "getProxySelector";
+    permission java.net.SocketPermission "*", "connect,resolve";
 };
